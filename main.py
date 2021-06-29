@@ -1,30 +1,21 @@
-classes = {}    # {'A': 'E', 'B': {'A, D'}, 'C': {'A'}, 'D': {'C', 'B'}}
 statements = int(input())
+
+for n in range(statements):
+    inpt = input().replace(":", "").split()
+    subclass = inpt.pop(0)
+    parents = []
+    for i in inpt:
+        existing_parents = globals()[i].__bases__
+        globals()[i] = type(i, existing_parents, {})
+        parents.append(globals()[i])
+    p = tuple(parents)
+    globals()[subclass] = type(subclass, p, {})
+
 queries = int(input())
 
-
-def setup():
-    i = input().replace(":", "").split()
-    child = i.pop(0)
-    classes[child] = set(i)
-
-
-def finder():
-    i = input().split()         # ['E', 'B']
-    parent = i[0]
-    child = i[1]
-    if parent in classes.get(child):
-        print('Yes')
-    elif parent not in classes.get(child):
-        i = [i[1], list(classes[child])]
-
-    elif parent == child:
+for i in range(queries):
+    qr = input().split()
+    if issubclass(globals()[qr[1]], globals()[qr[0]]):
         print('Yes')
     else:
         print('No')
-
-
-for n in range(statements):
-    setup()
-for q in range(queries):
-    finder()
