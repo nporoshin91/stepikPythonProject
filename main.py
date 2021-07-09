@@ -2,11 +2,12 @@ from collections import defaultdict
 
 MRO = defaultdict(set)
 
-# TODO: defaultdict
-# set - possible operations
+statements = int(input())
 
-for key, descendants in ...:
-    MRO[key].update(descendants)
+for n in range(statements):
+    d = dict(input_().split() for _ in range(n))
+    for key, value in input_:
+        MRO[key].update(value)
 
 
 def is_subclass(class_, of_):
